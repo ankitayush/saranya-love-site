@@ -6,14 +6,25 @@
 <title>For My Saranya ❤️</title>
 
 <style>
+
 body {
     margin: 0;
-    overflow: hidden;
     font-family: 'Segoe UI', sans-serif;
     color: white;
     text-align: center;
     background: black;
+    overflow-x: hidden;   /* allow vertical scroll */
+    overflow-y: auto;
+    min-height: 100vh;
 }
+
+.section {
+    display: none;
+    width: 90%;
+    margin: 20px auto 80px auto;
+    padding-bottom: 40px;
+}
+
 
 /* Canvas Background */
 canvas {
@@ -166,8 +177,14 @@ function runAway(){
 /* Starry Sky + Moon */
 const canvas=document.getElementById("sky");
 const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = document.body.scrollHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
 
 let stars=[];
 for(let i=0;i<300;i++){
