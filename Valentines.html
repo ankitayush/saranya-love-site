@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Saranya ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-align: center;
+    background: black;
+}
+
+/* Canvas Background */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Glowing Title */
+h1 {
+    margin-top: 60px;
+    font-size: 3rem;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #fff, 0 0 20px #ff4e73; }
+    to { text-shadow: 0 0 30px #fff, 0 0 60px #ff1e56; }
+}
+
+/* Typing text */
+#typed {
+    font-size: 1.3rem;
+    margin: 20px;
+    min-height: 40px;
+}
+
+/* Buttons */
+button {
+    padding: 14px 28px;
+    margin: 10px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: #ff4e73;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover { transform: scale(1.1); }
+
+.section {
+    display: none;
+    width: 85%;
+    margin: 20px auto;
+}
+
+#yesBtn { position: relative; }
+
+/* Rose petals */
+.petal {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Romantic Music -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4a0f6b6c4b.mp3?filename=romantic-ambient-11068.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="sky"></canvas>
+
+<h1>Happy Valentine's Day Saranya ❤️</h1>
+<div id="typed"></div>
+
+<button onclick="toggleSection('love')">Click Me 💖</button>
+<button onclick="toggleSection('romantic')">Click Me 💌</button>
+<button onclick="toggleSection('poem', true)">Click Me 🌹</button>
+
+<div id="love" class="section">
+    <h2>I Love You ❤️</h2>
+    <p>You are my peace, my happiness, my forever. I love the way you laugh.<br>
+    I love the way you care.<br>
+    I love the way you make everything feel safe and warm.<br><br>
+    You are my forever.</p>
+</div>
+
+<div id="romantic" class="section">
+    <h2>For My Heart 💖</h2>
+    
+    <p>With you, every moment feels magical.
+        When I look into your eyes, I see my future.<br>
+    When I hold your hand, I feel home.<br>
+    When you smile at me, the world disappears.
+    </p>
+</div>
+
+<div id="poem" class="section">
+    <h2>A Poem For Saranya 🌹</h2>
+    <p>
+    In a world so wide, under endless skies,<br>
+    I found my universe in your eyes.<br><br>
+    Your laughter dances in my heart,<br>
+    A melody that never falls apart.<br><br>
+    If love had a face, it would be you,<br>
+    Gentle, strong, and beautifully true.<br><br>
+    Through every storm, through every day,<br>
+    With you beside me, I’ll find my way.<br><br>
+    Saranya, my love, my heart, my light,<br>
+    Forever yours… today and every night. ❤️
+    </p>
+
+    <h2>Will You Be Mine Forever? 💍</h2>
+    <button id="yesBtn" onmouseover="runAway()">NO 😏</button>
+    <button onclick="alert('I knew it! I love you ❤️')">YES ❤️</button>
+</div>
+
+<script>
+/* Typing Effect */
+const text = "Saranya... under this sky full of stars, my heart beats only for you. ✨";
+let i = 0;
+function typeWriter(){
+    if(i < text.length){
+        document.getElementById("typed").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+    }
+}
+typeWriter();
+
+/* Toggle Logic */
+let currentSection=null;
+function toggleSection(id,fire=false){
+    const sec=document.getElementById(id);
+    if(currentSection && currentSection!==sec) currentSection.style.display="none";
+    if(sec.style.display==="block"){ sec.style.display="none"; currentSection=null; }
+    else { sec.style.display="block"; currentSection=sec; if(fire) launchFireworks(); }
+}
+
+/* Running YES */
+function runAway(){
+    const btn=document.getElementById("yesBtn");
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*80+"vw";
+    btn.style.top=Math.random()*60+"vh";
+}
+
+/* Starry Sky + Moon */
+const canvas=document.getElementById("sky");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
+for(let i=0;i<300;i++){
+    stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2});
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="white";
+    stars.forEach(s=>{
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fill();
+    });
+    /* Moon */
+    ctx.beginPath();
+    ctx.arc(canvas.width-150,120,60,0,Math.PI*2);
+    ctx.fillStyle="#f5f3ce";
+    ctx.fill();
+    requestAnimationFrame(draw);
+}
+draw();
+
+/* Shooting Stars */
+setInterval(()=>{
+    let x=Math.random()*canvas.width;
+    let y=Math.random()*canvas.height/2;
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(x+100,y+50);
+    ctx.strokeStyle="white";
+    ctx.stroke();
+},3000);
+
+/* Rose Petals */
+setInterval(()=>{
+    const petal=document.createElement("div");
+    petal.classList.add("petal");
+    petal.innerHTML="🌹";
+    petal.style.left=Math.random()*100+"vw";
+    petal.style.animationDuration=(Math.random()*5+5)+"s";
+    document.body.appendChild(petal);
+    setTimeout(()=>petal.remove(),10000);
+},1000);
+
+/* Fireworks */
+function launchFireworks(){
+    for(let i=0;i<40;i++){
+        const f=document.createElement("div");
+        f.style.position="fixed";
+        f.style.left=Math.random()*100+"vw";
+        f.style.top=Math.random()*100+"vh";
+        f.style.width="4px";
+        f.style.height="4px";
+        f.style.background="white";
+        f.style.borderRadius="50%";
+        f.style.boxShadow="0 0 20px white";
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),1000);
+    }
+}
+</script>
+
+</body>
+</html>
